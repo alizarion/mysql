@@ -40,7 +40,7 @@ RUN sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf \
 	&& mv /tmp/my.cnf /etc/mysql/my.cnf
 
 #VOLUME /var/lib/mysql not mounted for unit test, data saved in the container layers 
-ADD my-dumped-sb.sql /tmp/
+ADD my-dumped-db.sql /tmp/
 
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
