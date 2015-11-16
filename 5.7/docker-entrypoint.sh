@@ -47,7 +47,7 @@ if [ "$1" = 'mysqld' ]; then
 		fi
 
 		"${mysql[@]}" <<-EOSQL
-				eval $(cat /tmp/my-dumped-db.sql)
+				$(cat /tmp/my-dumped-db.sql)
 		EOSQL
 
 		if [ ! -z "$MYSQL_ROOT_PASSWORD" ]; then
