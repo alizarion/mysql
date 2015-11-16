@@ -21,6 +21,9 @@ RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys A4A9406876FCBD3C45677
 ENV MYSQL_MAJOR 5.5
 ENV MYSQL_VERSION 5.5.46
 
+#default password for unit testing
+ENV MYSQL_ROOT_PASSWORD toor
+
 # note: we're pulling the *.asc file from mysql.he.net instead of dev.mysql.com because the official mirror 404s that file for whatever reason - maybe it's at a different path?
 RUN apt-get update && apt-get install -y curl --no-install-recommends && rm -rf /var/lib/apt/lists/* \
 	&& curl -SL "http://dev.mysql.com/get/Downloads/MySQL-$MYSQL_MAJOR/mysql-$MYSQL_VERSION-linux2.6-x86_64.tar.gz" -o mysql.tar.gz \
@@ -50,7 +53,7 @@ RUN mkdir -p /etc/mysql/conf.d \
 		echo '!includedir /etc/mysql/conf.d/'; \
 	} > /etc/mysql/my.cnf
 
-VOLUME /var/lib/mysql
+#VOLUME /var/lib/mysql not mounted for unit test, data saved in the container layers
 
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
