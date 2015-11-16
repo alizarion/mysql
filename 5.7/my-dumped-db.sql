@@ -1,3 +1,12 @@
+
+-- What's done in this file shouldn't be replicated
+			--  or products like mysql-fabric won't work
+SET @@SESSION.SQL_LOG_BIN=0;
+DELETE FROM mysql.user ;
+CREATE USER 'root'@'%' IDENTIFIED BY 'toor' ;
+GRANT ALL ON *.* TO 'root'@'%' WITH GRANT OPTION ;
+DROP DATABASE IF EXISTS test ;
+=FLUSH PRIVILEGES ;
 -- --------------------------------------------------------
 -- Hôte:                         192.168.99.100
 -- Version du serveur:           5.5.5-10.0.22-MariaDB-1~jessie - mariadb.org binary distribution
