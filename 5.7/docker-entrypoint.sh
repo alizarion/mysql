@@ -46,7 +46,9 @@ if [ "$1" = 'mysqld' ]; then
 			mysql_tzinfo_to_sql /usr/share/zoneinfo | sed 's/Local time zone must be set--see zic manual page/FCTY/' | "${mysql[@]}" mysql
 		fi
 
-		"${mysql[@]}" < /tmp/my-dumped-db.sql
+		"${mysql[@]}" <<-EOSQL
+			$(cat /tmp/my-dumped-db.sql)
+		EOSQL
 
 		if [ ! -z "$MYSQL_ROOT_PASSWORD" ]; then
 			mysql+=( -p"${MYSQL_ROOT_PASSWORD}" )
