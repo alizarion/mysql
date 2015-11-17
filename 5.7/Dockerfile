@@ -37,7 +37,7 @@ RUN { \
 RUN sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf \
 	&& echo 'skip-host-cache\nskip-name-resolve' | awk '{ print } $1 == "[mysqld]" && c == 0 { c = 1; system("cat") }' /etc/mysql/my.cnf > /tmp/my.cnf \
 	&& mv /tmp/my.cnf /etc/mysql/my.cnf
-RUN chown -R mysql.mysql /var/lib/mysql
+
 #VOLUME /var/lib/mysql not mounted for unit test, data saved in the container layers 
 ADD my-dumped-db.sql /tmp/
 
